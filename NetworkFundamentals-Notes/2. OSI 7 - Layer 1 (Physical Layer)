@@ -1,0 +1,25 @@
+Physical Medium can be Copper (electrical), Fibre (light) or WIFI (radio frequencies RF)
+
+Layer 1 (Physical) specifics the transmission and reception of RAW BIT STREAMS between a device and a SHARED physical medium. It defines things like voltage levels, timing, rates, distance, modulation and connectors. 
+
+Layer 1 Device will only understand Layer 1 but a Layer 3 Device will only understand Layer 1, 2, 3. 
+
+## Layer 1 (HUB):
+
+Lets say you want more then 2 Players, How will that be possible?
+
+SO, you will have to use a HUB. So all laptops will need to connect to the HUB.
+
+Remember, anything the HUB receives on any ports, is transmitted to the other ports like:
+
+- Errors & Collisions
+
+### Layer 1 Networking Key info:
+
+- No device addressing, all data is processed by all devices
+- One Laptop cannot address one singular laptop it is a broadcast medium
+- This is a limitation of Layer 1 but it is fixed on Layer 2
+- If multiple devices try to transmit at once a collision will occur
+- Layer 1 has no media access control (can’t control what devices transmit) and no collision detection
+- Layer 1 can’t detect when collision occur]
+- Layer 2 runs on a working layer 1
