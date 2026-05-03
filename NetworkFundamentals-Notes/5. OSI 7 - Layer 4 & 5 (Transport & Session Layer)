@@ -1,0 +1,102 @@
+These two layers are interlinked and the session layer run on top of the transport layer.
+
+Also its not worth arguing if something is layer 4 or 5. So, its best to describe them as one. 
+
+## Layer 3 - Problems
+
+Before we start, it is best to describe the problems of layer 3: 
+
+- Each packet is routed interdependently
+- Out of order arrival
+- Routing decision are per packet. Different packets route will result in out of order packets at destination. L3 doesn't provide ordering mechanism.
+- L3 Communication is not guaranteed to be reliable. Packets can go missing
+- Per packet routing can introduce delays to packet routes. Different packets can experience different delays.
+- L3 doesn’t have communication channels. The packets have a source and destination IP but no method of splitting by APP or CHANNEL.
+- No flow control. If the source can send packets faster then its received from the destination. It could saturate the destination causing packet loss.
+
+## Layer 4 TCP and UDP:
+
+Layer 4 builds on top of Layer 3 introducing TCP and UDP.
+
+TCP - Transmission Control Protocol
+
+UDP - User Datagram Protocol
+
+Both of these run on top of IP and include range of features depending on what you use.
+
+TCP is picked: 
+
+- Contains reliability, error correction and ordering of data
+- Used for the important application layer protocols like HTTPS, SSH and so on.
+- Connection oriented protocol - This means you need to set up a connection between 2 devices once set up it will create a bidirectional channel of communications
+
+UDP is picked: 
+
+- UDP is much faster
+- Doesn't have TCP overhead required for reliable delivery of data
+- Less reliable but its all about performance
+
+## TCP Segments:
+
+TCP introduces something called segments.
+
+Segment - a container for data like packets and frames before them. They are specific to TCP.
+
+TCP segments are encapsulated within IP Packets
+
+Segments don’t have SRC and DST IP’s - the packets provide device addressing 
+
+ All TCP Segments: 
+
+- Both source and destination ports. These allow multiple destinations at once.
+- Sequence Number - This is incremented which each segment that is sent. Its unique and can be used for error correction.
+- Acknowledgment - One side can show that i receive up to or including a certain sequence number
+- Flags N Things - Flags are used to close connection or synchronize sequence numbers. Things means extra fields within the flags.
+- Window - This determines the number of bites your willing to receive between acknowledgments
+- Checksum - This allows the TCP layer to detect errors and can arrange re transmission of data required.
+- Urgent Pointer - This is used so controlled traffic can take priority. So, any latency sensitive protocols like FTP and telnet can use this field.
+- Data - The remains left of the segment
+
+All these segments together is known as the TCP Header
+
+## Transmission Control Protocol (TCP)
+
+TCP is a connection based protocol. This connection is established between to devices using a random port on a client. A known port on a server. When established the connection is bi-directional. This connection is a reliable connection provided with segments encapsulated in IP Packets.
+
+L3 Packets - No error checking, no ordering and no association.
+
+L4 chops these packets into segments which links them to a connection, error checking, ordering and re transmission.  
+
+## TCP Connection 3-Way Handshake:
+
+As mention before on the TCP segments, We talked about Flags n Things.
+
+Flags N Things (Actual Flags): 
+
+Flags which can be set to alter the connection. 
+
+- FIN - Can be used to close
+- ACK - acknowledgments
+- SYN - Synchronise sequence numbers
+
+### 3 Way handshake:
+
+1. SYN - Clients sends segment to the server wiht SYN sequence set ‘cs’
+2. SYN-ACK - Then picks a random ISN sequence ‘ss’. Sends segments - SYN & ACK Acknowldge set to ‘cs+1’. I’ve received up to cs Now send cs+1.
+3. ACK - Send segment with ACK Acknowledge set to ss+1. I’ve recievd ss, send ss+1 Sequence set to cs+1.
+4. Connection is established and Client cna send data. 
+
+## Sessions & State:
+
+TWO types of security methods for L4
+
+- Stateless Firewall - This sees two things.
+    - Outbound.. (Laptop-IP & tcp/23060) ⇒ (Server IP & tcp/443)
+    - Response.. (Server-IP & tcp/443) ⇒ (Laptop IP & tcp/23060)
+
+ TWO RULES will be required… OUT and IN
+
+- Stateful Firewall - This sees one things.
+    - Outbound.. (Laptop-IP & tcp/23060) ⇒ (Server IP & tcp/443)
+
+Allowing the outbound implicitly allows the inbound response
