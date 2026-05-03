@@ -1,0 +1,9 @@
+As for layer 6 there isnt a specifc video for this because this is collasped into layer 7.
+
+Quick description what layer 6 does: 
+
+- Translation - Converts data from netwokr format to application format (e.g. EBCDIC to ASCII)
+- Encryption/Decryption - This is where TLS/SSL live on the OSI model
+- Compression - Reduces the size of the data before it reaches the transportt layer
+
+More infomation will be on layer 7 (Application)
