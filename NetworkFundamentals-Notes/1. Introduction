@@ -1,0 +1,30 @@
+## What we going to cover?
+
+- Local Networking - Ethernet
+- Routing
+- Segmenting, Ports & Sessions
+- Applications
+- OSI 7-Layer Model
+
+This is known as a Networking Stack or the software which does these functions. 
+
+Items that include a networking stack: 
+
+- Laptops
+- Phones
+- WiFi
+
+7 Layers are split into 2 grouping:
+
+Media Layers (Layers 1 - 3):
+
+- Layer1 - Physical
+- Layer2 - Data Link
+- Layer3 - Network
+
+Host Layers (Layers 4 - 7): 
+
+- Layer4 - Transport
+- Layer5 - Session
+- Layer6 - Presentation
+- Layer7 - Application
