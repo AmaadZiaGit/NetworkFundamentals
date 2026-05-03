@@ -1,0 +1,24 @@
+## Normal Firewall (Layer3/4/5)
+
+This firewall is used to secure applications and used by millions of people. 
+
+Sees 2 communication services: 
+
+- Request from laptop to server
+- Response from Server to Laptop
+
+Layer 3 and 4 packets and segments Request and Response are different and unrelated
+
+Layer 5 (session) capability Request and Response can be considered as part of one session 
+
+Reduces admin overhead and allows for more contextual security 
+
+## Application (Layer 7) Firewall:
+
+- Layer 7 Firewalls are aware of Layer 7 protocol e.g. HTTP
+- L7 FW can identify normal and abnormal request. Protocol specific attacks
+- Encryption (HTTPS) terminated (decrypted) on the L7 Firewall
+- New Encrypted L7 Connection between Fw and backend
+- Data at L7 can be inspected and blocked, replaced or tagged (adult, spam off topic)
+
+L7 FW keeps all L3,4,5 features but can react to L7 elements (DNS, RATE, Content, Headers)
