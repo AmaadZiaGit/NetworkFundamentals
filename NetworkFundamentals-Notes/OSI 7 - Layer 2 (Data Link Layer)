@@ -1,0 +1,74 @@
+This is one of the most important layer of the OSI Model.
+
+Layer 2 runs on a functional Layer 1. So, layer 1 need to operate for Layer 2 to work. 
+
+### Layer 2 - Frames:
+
+Frames is a format for sending information over layer 2 network. 
+
+Devices at Layer 2 have a unique hardware (MAC) address e.g. 3e:22:fb:b9:5b:75. 48 bits in hex and 24 bits in manufacture. Frames can be addressed to a destination or broadcasts (ALL F’s).
+
+Mac address is formed in 2 parts: 
+
+- OUI (Organisationally unique identifier) - This is assign to companies who manufacture network devices
+- NIC (Network interface controller) - This means together the MAC address on the netwokr card should be globally unique,
+
+As mentioned before layer 2 uses layer 1 or Ethernet frame in this example can be transmitted on the shared physical medium by layer one. So it is converted to voltages or RF.
+
+Differences Between Layer 1 and Layer 2: 
+
+- Layers 2 Provides frames
+- Layer 1 handles the physical transmission and reception from the physical shared medium
+
+Layer 2 uses a frame to communication. Think about the frame being a container which has a few different components. They are many parts:
+
+1. Preamble / Start Frame (56 BIts/ SFD - 8 bits) - This allows devices to know it is the start of the frame.
+2. Destination and Source MAC Address - All the devices on a layer 2 Network have unique MAC address and a frame can be send to a specific device on a netwokr but putting it MAC address on its destination
+3. EtherType (ET) - This is used to specific which layer 3 protocol putting inside a frame. So, Layer 3 uses layer 2 frame for device to device communication.  
+
+Step 2 and 3 are known as the MAC Header they control the frame destination, indicate the source and specify its function
+
+1. Payload (46 - 1500 Bytes) - This comes after the MAC header. Essentially, its the data the frame carries from source to destination. It’s generally provided by Layer 3 and the ET attributes defines which Layer 3 protocol is being used e.g. IP.
+2. Frame Check Sequence (FCS) - This checks if the frames has any errors
+
+Lets say you want too connect 2 laptops using the layer 2: 
+
+1. Laptop 1 will use Layer 2 (Ethernet - intends to send data to 3e:22fb:b9:5b:76 Layer 2 creates a Frame (F1)
+2. Checks Carrier - Layer 2 will now communicate with Layer 1 part of the networking stack and looks for any signs of a carrier signal. This is the job of CSMA (Carrier sense, multiple access)
+3. If there is no carrier Layer 1 takes the frame data and converts it to physical standard and transmits
+4. Layer 1 (Laptop 2) receives and passes frame to layer 2. Then the data is passed to laptop 2.
+5. When Laptop 2 wants to send to Laptop 1 its layer 2 will build a frame
+6. If a carrier is detected, It waits another device is done transmitting 
+7. Frame sent to Layer 1 for transmission
+8. If collisions are detected (both transmitting at once) both back off for a time + random. Increases if another close collision 
+
+This is how these games communicate.
+
+This process using Encapsulation - Process of taking some data and wrapping it into something else. Then the data gets encapsulated to extract the data from the payload.
+
+Layers are independent - conceptually Laptop 1 L2 is talking to Laptop 2. 
+
+## Layer 2 using HUBS:
+
+- HUBS are layer 1 devices they do not understand frames.
+- If the top laptop sends a frame with a destination of the bottom - the HUB repeats all laptop receive the frame.
+- Hubs have a single collision domain collisions are also repeated and impact all devices.
+
+## Layer 2 using a Switch:
+
+- As switch is a Layer 2 device, this means it has layer 2 software running inside it and all end devices will have it own MAC address
+- When switch receives frames on it ports it learns which devices are connected and populates the Mac address table
+- Switches over-time will know what is connected to each port.
+- If a FRAME (F!) is transmitted to 5b:78 this will be forwarded to that one specific port of the destination MAC address is in the table. If not, then i will be forwarded to all the ports. Any frames ‘All fs’ will always forward to all ports.
+- Switches STORE and FORWARD they don’t repeat like hubs. They only validate frames are forwarded - collisions are isolated on the port they occurred. Every X port switch has X collision domain. This allows switches to scale and be connected together.
+- Each port is its own collision domains so forward collisions.
+- Switches deals with frames not the physical layer
+
+## Layer 2 - Data Link
+
+- Identifiable devices
+- Media access control (sharing)
+- Collision Detection
+- Uni cats 1:1
+- Broadcasts 1:ALL
+- Switches - Like HUBS with Super Powers (Layers2)
