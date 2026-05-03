@@ -1,0 +1,156 @@
+Lets say their are 2 groups of people consisting 4 in each group playing separately. So, LAN1 and LAN2. These LANS are isolated local area networks. Using only layer 2, only these network joined by a direct point to point link using SAME layer 2 protocol could communicate.
+
+Ethernet is a L2 protocol used generally for local networks. Long distance point to point links will use other more suitable protocols such as…PPP/MPLS/ATM.
+
+Internet Protocol (IP) is a Layer 3 protocol which adds cross-networks IP addressing and routing to move data between Local Area Networks without direct P2P links.
+
+IP Packets move from source to destination with intermediate networks step by step. This is encapsulated in different frames along the way. 
+
+Routers (L3) devices, remove frame encapsulation and add new frame encapsulation every hop.
+
+Packets - These are similar to frames, contains data to be moved and they have a source and destination address. 
+
+But frames are generally local, while IP packets can be across the world.
+
+While packets moving around the Layer 2 network it stays the same and are placed inside frames known as encapsulation. 
+
+## Layer 3 Packet Structure
+
+AN IP packet contains various different fields much like frames 
+
+### 2 Versions of Internet protocol in use:
+
+V4 and V6
+
+V4 contains: 
+
+- Version
+- Header Length
+- Type of service
+- Identification
+- Total Length
+- IP Flags
+- Fragment Offset
+- Header checksum
+- IPOPTION
+- Destination and source IP address (Most Important)
+- Protocol (Important) - E.g. UDP or TCP
+- Data (Takes majority of the packet)
+- TTL
+
+V6 Contains: 
+
+- Version
+- Traffic Class
+- Flow Label
+- Payloads Length
+- Next Header
+- Destination and source IP address (Most Important and much bigger for IPV6)
+- Data
+- Hop Limit
+- TTL
+
+## IP Addressing (v4) - IPv4
+
+IP addressing identifies the device which uses layer 3 IP networking 
+
+IP addresses are split into different parts. e.g:
+
+                                                    133.33.3.7
+
+All IP Addresses have a network part             and a host part
+
+To see if a IP address is linked the ‘network’ part of the IP address matches then they will be on the same IP address if not they are on different networks.
+
+IP address aren’t dotted numbers. This format is created for humans to understand. Actually they are in eight bit binary numbers. So, they are 4 of these per IP address so they conclude of 32 bits in size. 
+
+Each 8 bits is known as a octet. 
+
+The IP address presented above has /16 prefix this means 16 bits of the IP are the network, and the remaining bits are for hosts.
+
+IP Address are either assigned by Humans or machines (DHCP)
+
+DHCP - Dynamic Host Configuration Protocol 
+
+## Subnet Mask
+
+This is very important to determine if a IP address is local to each other or remote.
+
+It is a very critical part to IP networking and configured on a L3 interface along with IP addresses.
+
+Most netwokr interface have a default gateway.
+
+Default Gateway - This is an IP address on the local networks which packets are forwarded to generally if the intended destination isn’t a local IP address.
+
+Subnet Masks - It lets a IP device know if IP address its communicating with is on the same netwokr or no. This influences if it needs to use a gateway or can communicate locally.
+
+A Subnet Mask is configured on a host device in addition to an IP address. e.g. 255.255.0.0 and this is the same as /16 prefix.
+
+Subnet mask is a dotted decimal version of binary number which indicates part of an IP address is NETWORK (1) and which part is HOST (0).
+
+The staring address of the local network is ALL-0’s in the HOST part, the ending is ALL-1’s in the HOST part. 
+
+## Layer 3 - Route Tables & Routes
+
+This is how you send from your home device to your given destination of your choice: 
+
+1. default route 0.0.0.0/0 sends all packers to MEOWISP
+2. Router now has multiple interfaces which uses the route table for selection
+3. Route table is a collection of routes it will have destination and next hop or target field. Every packets arrives it will check its destination
+
+The higher the number is after the slash means the more specific. e.g. /32 is more specific then /0.
+
+/32 means 1 specific IP address, while /0 means all IP address.
+
+![image.png](attachment:64bd37f6-9974-4c82-8154-56f5f5887ec3:image.png)
+
+## Address Resolution Protocol (ARP)
+
+ARP will give you the MAC address for a given IP address.
+
+For this scenario lets say we have 2 laptops both L3: 
+
+1. Laptop 1 wants to send game data to laptop from 133.33.3.7 to 133.33.3.10 (Laptop 1 IP to Laptop 2 IP)
+2. Data handled to L3 destination 3.10. It has a packet which contains source and destination IP which is the right laptop.
+3. Within a local netwokr data is moved with L” Frames over L!. ARP discovers which MAC relates to given IP.
+4. ARP broadcasts on Level 2 - It sends an ARP frame to all Fs as a MAC address. Asking who has Address 133.33.3.10
+5. The ARP protocol sees this and responds i am 133.33.3.10 and my MAC address ends 5b:78
+6. As the Left Laptop has RIght Laptop MAC address it builds a frames that uses DST (Destination) MAC obtained with ARP (Transmitted using Layer1).
+7. L1 hands off raw data to L2 (frame)
+8. DST MAC matches 5b:78 so L2 strips frame and passed payload to L3
+9. Layer 3 sees this matches then de-encapsulates the data and hands it to the game 
+
+## IP Routing
+
+In this scenario using the picture above we are going to be using 3 devices
+
+Local Communication example:
+
+- Subnet Mask and destination IP confirm D1 and D2 are on the same network as the beginning part of the IP addresses are the same (133.33).
+- So then a packet will get created called p1 withe D2 IP address as the destination
+- To get D2 MAC address ARP will be used. Then that packet will be encapsulated in a frame with that MAC address as the destination
+
+Remote Communication example: 
+
+1. Subnet mask and destination IP show the Laptop (D3) isn’t local. Then it creates a packet called P2 that has d3 laptop as its destination IP address. This is wrapped in a frame called F2.
+2. ARP is going to be used to find the MAC address of the default gateway (router 1 R1)
+3. P2 with D3 destination. Encapsulates in a frame destination is R1 MAC. This is sent to the R1 MAC by D2#
+4. R1 removes the frame around P2 and review packets IP destination (D3) 
+5. R1 has a route table for the Pink Network which D3 is in. It will create a frame (F3) with R2 (The next IP hop) as the destination MAC. P2 is unchanged and is in frame payload.
+6. F3 sent to R2 MAC address
+7. R2 removes the frame around P2
+8. R2 knows the destination IP of P2 as its on the same netwokr. So, it will use ARP to find the MAC address of D3. It creates F4 with D3 destination MAC and encapsulates P2.
+9. F4 is sent to D3, P2’s final destination
+
+![image.png](attachment:d15bcc42-62ec-4e08-a5cb-bc1dad211a96:image.png)
+
+## Layer 3 - Network (Summary):
+
+- IP address (IPV4/v6) - cross networking addressing
+- ARP - Find the MAC address, for the IP
+- Route - Shows where the packet is fowarded
+- Route table - Shows multiple routes
+- Router - Moves packet from source to destination - Encapsulating in L2 on the way
+- Device <> Device communicates over the internet
+- No method for channels of communication only source and destination only (SRC and DST IP)
+- Can be delivered out of order
