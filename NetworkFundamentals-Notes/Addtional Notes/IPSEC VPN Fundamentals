@@ -1,0 +1,66 @@
+## What is IPSEC?
+
+- IPSEC is a group of protocol
+- This sets up secure tunnels across insecure networks between both local and remote
+- Provides authentication and encryption
+
+As you may know the public internet is unsafe. 
+
+- IPSEC creates as required interesting traffic
+- Data in side tunnels is encrypted - secure connection over a inscure netwokr
+
+## Two types of encryption:
+
+- Symmetric Encryption is fast and has low overhead but exchangeing key is a challenge
+- Asymmetric Encryption is slow but much easier to exchange keys
+
+IPSEC has 2 phases: 
+
+IKE Phase 1
+
+- IKE (Internet key exchange) Phase 1 (Slow and heavy) - This is a protocol on how keys are exchanged
+- There are 2 version: 1 and 2
+- 1 is logically older
+- Using Asymmetric encryption to agree on and create a shared symmetric key
+- IKE SA Create (Phase 1 tunnel)
+
+IKE Phase 2 (Fast and agile) 
+
+- Uses key in phase 1
+- Agree encryption method and keys used for bulk data transfer
+- Create IPSEC SA phase 2 tunnel (architecturally running over phase 1)
+
+## IPSEC VPN Architecture
+
+IKE Phase 1: 
+
+1. Certificates or pre-shared key authentication
+2. Each side Creates a DH (diffie-helman) Private key
+3. Derived a public key
+4. Public keys are exchanged between users over the public internet 
+5. Each side takes their private key and the remote peers public key - indepandtly generates ‘same’ shared diffie-hellman key
+6. Using DH Key - exchanges key material and agreements
+7. Each side generates a Symmetrical key using DH Key and exchanged material
+8. Ends with a IKE security ASSOCIATION (Phase 1 tunnel) which works with Phase 2 
+
+IKE Phase 2: 
+
+Starts with DH key both users and Symmetric key and a phase 1 tunnel 
+
+1. Symmetrical key is used to encrypt and decrypt agreements and pass more key material
+2. Best shared encryption and integrity methods communicated and agreed
+3. DH key and Exchanged key material is used to create symmetrical IPSEC key
+4. IPSEC Key is s used for bulk encryption and decryption of interesting traffic
+5. IPSEC SA (PHASE 2 TUNNEL) goes both sides
+
+## 2 types of VPN:
+
+Policy-based VPNS: 
+
+- rules sets match traffic ⇒ a pair of SAs (Security assocations)
+- Different rules and security settings
+
+Route-based VPN 
+
+- Target matching (Prefix)
+- Matches a single pair of SAs
