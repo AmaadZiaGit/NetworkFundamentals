@@ -1,0 +1,45 @@
+Jumbo Frame is a frame that is maximum 9,000 bytes.
+
+Normal Frame is 9000 bytes
+
+These frames contain 2 things: 
+
+- Frame Payload
+- Frame Overhead
+
+These are shared across the physical medium.
+
+Normal Frames:
+
+With normal frames you have more overhead to payload ration. More wasted time on medium.
+
+More Frames = More space between frames 
+
+More wasted time on medium
+
+Jumbo Frames:
+
+More payload (data) per frame overhead = more efficiency
+
+More payload per frame = less frames = less wastes between frame
+
+Drawbacks:
+
+Every step has to support jumbo Frames or you will see fragmentation BAD.
+
+Not everything in AWS support jumbo frames
+
+Do and Don’t for Jumbo Frames:
+
+Do: 
+
+- Same region peering
+- Direct Connect
+- Traffic over an internet gateway
+
+Don’t: 
+
+- Traffic outside a single VPC
+- Traffic over an inter-region VPC peering connection
+- Traffic over VPN connections
+- Traffic over an internet gateway
