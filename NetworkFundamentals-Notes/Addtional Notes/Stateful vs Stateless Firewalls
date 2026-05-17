@@ -1,0 +1,63 @@
+What most people imagine is a Single Outbound connection.
+
+Connection is with https which is tcp/443
+
+Every “Connection” has two parts - Request (initiation) and RESPONSE
+
+1. The client picks a temporary (ephemeral) source port, 1024-65535 (Depends on OS)
+2. The client ‘Bob laptop’ initiates a connection to the server on a well-known destination ports HTTPS tcp/443
+3. The server responds using a source port of tcp/443 and the destination ephemeral port picked by the client 
+
+Client Perspective:
+
+Each connection is a REQUEST and RESPONSE 
+
+REQUEST Part:
+
+- SRC IP: 119.18.36.73 (bob laptop IP)
+- SRC PORT: 13337
+- REQUEST is OUTBOUND from the CLIENT perspective
+
+RESPONSE PART: 
+
+- DST IP: 119.18.36.73
+- DST PORT: 13337
+- RESPOND is INBOUND from the CLIENT perspective
+
+Server Perspective:
+
+Directionality… INBOUND or OUTBOUND depends on perspective (Client / server)
+
+REQUEST Part:
+
+- DST IP: 1.3.3.7
+- DST PORT: 443
+- REQUEST is INBOUND from the SERVER perspective
+
+RESPOND PART: 
+
+- SRC IP: 1.3.3.7
+- SRC PORT: 443
+- RESPOND is OUTBOUND from the SERVER perspective
+
+## Stateless Firewall:
+
+A stateful firewall means that doesn't understand the state of connection
+
+It requires 2 Rules (1 in, 1 Out) Per connection (Inbound application) 
+
+It requires 2 Rules (1 in, 1 Out) Per connection (Outbound application) 
+
+2 important rules: 
+
+- This type of firewall will require a inverse rule
+- The response ephemeral port its not a well known APP port
+
+## Stateful Firewalls:
+
+A stateful firewall is intelligent enough to know the REQUEST and REPSONSE components of a connection as being related.
+
+Allowing the REQUEST (inbound or outbound) means the REPSONSE (inbound or outbound) is automatically allowed. 
+
+- Reduces admin overhead and mistakes
+- Full ephemeral port ranges isn't needed
