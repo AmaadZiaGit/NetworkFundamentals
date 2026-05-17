@@ -1,0 +1,27 @@
+## Human vs Computer:
+
+Human sees this 133.33.33.7. This is a dotted notation which consists of 4 numbers which rnage between 0 to 255.
+
+Computer sees this 10000101.00100001.00100001.00000111
+
+This is a 32 bit binary number. Which is four sets of eight bits.
+
+32bits 
+
+- 4 x 8 Bits
+- 4 x Bytes
+- 4 x Octets
+
+## Decimal ⇒ Binary:
+
+Lets convert 133.33.33.7
+
+Decimal is 133.33.33.7 ⇒ Binary is 10000101.00100001.00100001.00000111
+
+1. Each Decimal Number between the dots are form 0-255. So we do each part 1 by 1 
+2. Move through the binary table from left to right
+    1. Compare decimal number to Binary position value, if smaller write 0 ⇒ move on to next table position, go to #1
+    2. If it is equal or larger - minus the binary position value from your decimal number add 1 in the binary value
+    3. Move on to the next position, go to #1 (with the new decimal value) 
+3. 133 larger/equal than 128 (Rule #2) 133-128 = 5 (New decimal number) Add ‘1’ in binary position
+4. 5 is smaller than 64,32,16,8. Add 0 and move on (Rule #1)
