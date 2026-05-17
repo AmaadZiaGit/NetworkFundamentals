@@ -1,0 +1,39 @@
+This is how BGP communities are used in AWS:
+
+BGP - This is a protocol where routes are exchanged with 2 or more autonomous systems.
+
+An example will be AWS and a customer router.
+
+eExtra metadata (labels/tags) attached to advertised prefixes.
+
+Well known predefined including 
+
+- No_Export - Don’t advertise to EXTERNAL peers (AWS use this for incoming)
+- No_ADVERTISE - Don’t advertise to any peers
+- Regular communities = 32 bit value, split into 2 x 16
+- AS_NUMBER:OPERATOR_ASSIGNED_VALUE
+- i.e 7724:9100…. 7224:8100
+- BGP operators (you or AWS) act on advertisement based on communities
+
+## BGP Communities - Public VIF:
+
+Direct Connect in us-west-1 region Northern California 
+
+Prefixes are tagged base don if SAME REGION or GLobal based on DX location.
+
+e.g. 7224:8100 / 7224:8200
+
+You can control how your prefixes will be advertised 
+
+- 7224:9100 - Local only
+- 7224:9200 - Continent
+- 7224:9300 - Global
+- Nothing = global
+
+## Summary:
+
+- Allows BGP administrators to dine rules
+- how to handle incoming prefix advertisement
+- They have other use
+- Local preferences
+- GP controls how fare AWS advertise our routes
