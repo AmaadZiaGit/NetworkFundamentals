@@ -1,0 +1,54 @@
+This is a alternative way to transmit data versiuing copper cables. 
+
+Fibre Optics uses: 
+
+- A thin glass / plastic core surrounded by protection
+- The diameter of a human hair
+- Transmit light over the cable
+- Can cover larger distances and higher speeds
+- Resistant to EMI and less prone to water ingress
+- More consistent (normally) vs copper cable
+
+## FIbre Optic Cable (Construction)
+
+Connectors influence what hardware the cable can be used with and can limit or influence the transmission characteristics.
+
+Cable choice is essential this directly influences distance speed and features.
+
+FIbre diameter is expressed as X/Y. e.g. 9/125 is the diameter of the core, Y is the diameter of the cladding (both in micros)
+
+Core - This is the physical medium which carries light between transmitter and reciever
+
+Cladding - This is boundary surrounding the core to contain the light which allows data to move through the length of the core 
+
+Buffer - This is a combination of internal coating & strengthen fibres designed to absorb shocks and provides additional strength for the core. This is surrounded by a cable jacket.  
+
+## FIbre Optic Cable (Mode)
+
+Singlemode:   
+
+- Has a really small core its often 8/9 microns in size.
+- Generally uses a yellow jacket. But not always.
+- Due to it tiny core light generally follows a fairly single and straight path down the core.
+- Little distoriton and bounce.
+- Longest distance - highest bandwidth
+- Not the fastest but the best combo for hgih speed and distance by far.
+
+Multimode: 
+
+- Has a much larger core
+- An orange/Aqua jacket
+- More light more data
+- Much faster but has more distortion
+- Good for shorter cable runs
+- Cheaper LED optics
+- Uses prefix OM
+
+## Fibre Optic Transceivers:
+
+- SFP Transceiver Module (SFP or MINI GBIC)
+- Single form-factor pluggable
+- Generates and sends or receives light TO/FROM fibre
+- Multi-mode or single-mode
+- Optimised for a a cable type
+- 100BASE-LX, 10GBASE-LR, 100GBASE-LR4 (This is used by vendors to tell you what cables you are using)
